@@ -1,0 +1,71 @@
+// My fonts
+$header-font: 'Times New Roman', Times, serif;
+$list-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$input-height: 1.2rem;
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes frame-bounce {
+    0% {
+        transform: translateY(-150%);
+    } 
+    100% { 
+        transform: translateY(0);
+    }
+}
+
+// @keyframes elastic-bounce {
+// 	0% {
+// 		transform: translateY(-0%);
+// 	}
+
+// 	16% {
+// 		transform: translateY(32.27%);
+// 	}
+
+// 	28% {
+// 		transform: translateY(-13.12%);
+// 	}
+
+// 	44% {
+// 		transform: translateY(4.63%);
+// 	}
+
+// 	59% {
+// 		transform: translateY(-1.64%);
+// 	}
+
+// 	73% {
+// 		transform: translateY(0.58%);
+// 	}
+
+// 	88% {
+// 		transform: translateY(-0.2%);
+// 	}
+
+// 	100% {
+// 		transform: translateY(0%);
+// 	}
+
+// }
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    67% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
