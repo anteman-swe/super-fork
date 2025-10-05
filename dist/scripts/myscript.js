@@ -58,8 +58,8 @@ const addRowToHTML = (taskItem) => {
             const trashCan = document.createElement('span');
             
             // First we create the trashcan and connect a listener to it
-            trashCan.textContent = 'delete';
-            trashCan.setAttribute('class', 'material-symbols-outlined');
+            trashCan.innerHTML = '&#x1F5D1;';
+            trashCan.setAttribute('class', 'trashCan');
             trashCan.addEventListener('click', removeTask);
             
             // Second we create our task with its text content
@@ -80,16 +80,10 @@ const addRowToHTML = (taskItem) => {
 // Update the visible readycounter in page
 const updateReady = (readyCount) => {    
     if (readyCount > 0) {
-        readyItems.textContent = `${readyCount} uppgifter färdiga`;
-        readyItems.style.backgroundColor = 'rgb(0, 128, 0, 0.5)';
-    }
-    else if (readyCount == 0 && todoList.length == 0) {
-        readyItems.textContent = `Det finns inga uppgifter att göra`;
-        readyItems.style.backgroundColor = 'rgb(255, 128, 128, 0.5)';
+        readyItems.textContent = `${readyCount} completed`;
     }
     else {
-        readyItems.textContent = `${readyCount} uppgifter färdiga`;
-        readyItems.style.backgroundColor = 'rgb(0, 255, 0, 0.4)';
+        readyItems.textContent = `0 completed`;
     }
 }
 
@@ -126,7 +120,7 @@ function firstRun() {
 
 // ##################### Functions misc #############################################################
 
-// Using DOMPurify to clean the input from any bad content
+// Using ??? to clean the input from any bad content
 const cleanInput = (textToClean) => {
     const cleanText = textToClean; // Här behöver man göra en rengöring av strängen med regex eller trim?
     return cleanText;
@@ -134,6 +128,7 @@ const cleanInput = (textToClean) => {
 
 // reset warning message
 const resetWarning = () => {
+    taskAlreadyExist.classList.remove('flash');
     taskAlreadyExist.textContent = "";
 }
 
@@ -251,12 +246,14 @@ function addToDo() {
             cleanInputField();
         } else {
             // If task already existed, we let the user know
-            taskAlreadyExist.textContent = "Den uppgiften finns redan, försök med ett annat namn."
+            taskAlreadyExist.classList.add('flash');
+            taskAlreadyExist.textContent = "That task already exist. Try another name"
             setTimeout(cleanInputField, 3200);
             setTimeout(resetWarning, 3000);
         }
     } else {
-        taskAlreadyExist.textContent = "Du måste skriva något i inmatningsfältet för att skapa en uppgift";
+        taskAlreadyExist.classList.add('flash');
+        taskAlreadyExist.textContent = "Input must not be empty";
         setTimeout(resetWarning, 3000);
         
     }
