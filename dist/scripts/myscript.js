@@ -9,6 +9,7 @@ const readyItems = document.querySelector('#readyItems');
 const taskAlreadyExist = document.querySelector('#task-already-exist');
 
 let readyItemCounter = 0;
+
 // ##################################################################################################
 
 
