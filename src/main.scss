@@ -84,7 +84,7 @@ html {
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: 98vh;
     background-image: linear-gradient(to top, #ff7d7d, #fec6c5);
 }
 
@@ -118,7 +118,8 @@ body {
         width: 8rem;
         margin-right: 0.2rem;
         border-width: 1px;
-        border-radius: 0.1rem; 
+        border-radius: 0.1rem;
+        font-size: 0.7rem;
         animation: fade-in 1.7s linear 1; 
     }
     #newTaskInput:focus {
@@ -136,6 +137,7 @@ body {
         border-radius: 0.1rem;
         font-size: 0.8rem;
         font-weight: normal;
+        cursor: pointer;
         animation: fade-in 1.7s linear 1;
     }
     #task-already-exist {
@@ -160,6 +162,7 @@ body {
             font-weight: 500;
             text-decoration: none;
             .list-text-content {
+                transition: color 0.3s linear;
                 margin-right: 0.3rem;
                 cursor: pointer;
             }
