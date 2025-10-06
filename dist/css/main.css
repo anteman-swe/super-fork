@@ -157,5 +157,6 @@ body {
   text-decoration: line-through;
 }
 .todo-container ul li .trashCan {
+  font-size: 0.7rem;
   cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

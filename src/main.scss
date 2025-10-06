@@ -1,74 +1,4 @@
-// My fonts
-$header-font: 'Times New Roman', Times, serif;
-$list-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-$input-height: 1.2rem;
-
-// My animations
-@keyframes flash {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes frame-bounce {
-    0% {
-        transform: translateY(-150%);
-    } 
-    100% { 
-        transform: translateY(0);
-    }
-}
-@keyframes elastic-bounce {
-	0% {
-		transform: translateY(-0%);
-	}
-
-	16% {
-		transform: translateY(32.27%);
-	}
-
-	28% {
-		transform: translateY(-13.12%);
-	}
-
-	44% {
-		transform: translateY(4.63%);
-	}
-
-	59% {
-		transform: translateY(-1.64%);
-	}
-
-	73% {
-		transform: translateY(0.58%);
-	}
-
-	88% {
-		transform: translateY(-0.2%);
-	}
-
-	100% {
-		transform: translateY(0%);
-	}
-
-}
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    67% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+@use 'vars-kf';
 
 // My styles
 * {
@@ -97,7 +27,7 @@ body {
     text-align: center;
     box-shadow: 0 0 0.4rem #777777;
     h1 {
-        font-family: $header-font;
+        font-family: vars-kf.$header-font;
         font-size: 1.6rem;
         font-weight: bold;
         animation: fade-in 1.5s linear 1;
@@ -105,7 +35,7 @@ body {
     }
     #readyItems {
         margin: 0.5rem auto 0.7rem auto;
-        font-family: $list-font;
+        font-family: vars-kf.$list-font;
         font-size: 0.5rem;
         font-weight: normal;
         animation: fade-in 1.5s linear 1;
@@ -114,7 +44,7 @@ body {
     #newTaskInput {
         display: inline-block;
         vertical-align: middle;
-        height: $input-height;
+        height: vars-kf.$input-height;
         width: 8rem;
         margin-right: 0.2rem;
         border-width: 1px;
@@ -131,7 +61,7 @@ body {
     #addButton {
         display: inline-block;
         vertical-align: middle;
-        height: $input-height;
+        height: vars-kf.$input-height;
         width: 2rem;
         border-width: 1px;
         border-radius: 0.1rem;
@@ -143,7 +73,7 @@ body {
     #task-already-exist {
         width: 100%;
         margin-top: 0.2rem;
-        font-family:$list-font;
+        font-family: vars-kf.$list-font;
         font-size: 0.5rem;
         font-style: italic;
         color: red;
@@ -157,7 +87,7 @@ body {
         margin-top: 10px;
         list-style-type: none;
         li {
-            font-family: $list-font;
+            font-family: vars-kf.$list-font;
             font-size: 0.8rem;
             font-weight: 500;
             text-decoration: none;
@@ -172,6 +102,7 @@ body {
                 text-decoration: line-through;
             }
             .trashCan {
+                font-size: 0.7rem;
                 cursor: pointer;
             }
         }
