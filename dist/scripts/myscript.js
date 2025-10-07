@@ -218,7 +218,7 @@ function addToDo() {
     
     // If input is empty or doesn't exist we do nothing
     if (!(itemToAddInput == '' || itemToAddInput == null)) {
-        // Sending input to be cleaned by DOMPurify
+        // Sending input to be cleaned by nothing, right now
         const  itemToAddClean = cleanInput(itemToAddInput);
 
         // ######## Under this line, we do not use dirty input itemToAddInput #######################
@@ -249,7 +249,7 @@ function addToDo() {
             // If task already existed, we let the user know
             taskAlreadyExist.classList.add('flash');
             taskAlreadyExist.textContent = "That task already exist. Try another name"
-            setTimeout(cleanInputField, 3200);
+            cleanInputField();
             setTimeout(resetWarning, 3000);
         }
     } else {
