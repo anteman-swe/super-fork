@@ -12,8 +12,6 @@ let readyItemCounter = 0;
 
 // ##################################################################################################
 
-
-
 // #################### Functions to work with local storage ########################################
 // Function to save task to local storage
 const saveToLocal = (itemToSave, index = (todoList.length - 1)) => {
@@ -21,31 +19,49 @@ const saveToLocal = (itemToSave, index = (todoList.length - 1)) => {
 }
 
 // Function to update tasks in local storage
-const updateLocalDone = (item, state) => {
-    let itemTochange = JSON.parse(localStorage.getItem(`task${item}`));
+const updateLocalDone = (itemNr, state) => {
+    let itemTochange = JSON.parse(localStorage.getItem(`task${itemNr}`));
     let itemToLoadBack = {todo: itemTochange.todo, done: state};
-    localStorage.setItem(`task${item}`, JSON.stringify(itemToLoadBack));
+    localStorage.setItem(`task${itemNr}`, JSON.stringify(itemToLoadBack));
 }   
 
-// Function to get tasks from local storage
+// Function to get tasks from local storage and see to it that they are sorted correct
 const getFromLocal = () => { 
     let indexCounter = 0;
     let  savedTaskArray = [];
+    let maxArray = [];
+    // Retreives an array of the tasks saved in local storage
     while (indexCounter < localStorage.length) {
         let storageKey = localStorage.key(indexCounter);
         let retrievedObject = JSON.parse(localStorage.getItem(storageKey));
-        let newObject = {todo: retrievedObject.todo, done: retrievedObject.done};
+        let newObject = {task: storageKey.at(-1), todo: retrievedObject.todo, done: retrievedObject.done};
         savedTaskArray[indexCounter] = newObject;
+        maxArray.push(storageKey.at(-1));
         indexCounter++;
     }
-    //  To fix errors with keys, clear storage and resave
+    // Finding what task has greatest sorting number
+    let comparer = maxArray.sort().at(-1);
+    let outputArray = [];
+    indexCounter = 0;
+    // Sort the tasks in a new array to be written back to local storage and returned
+    while (indexCounter < comparer + 1) {
+        savedTaskArray.forEach(item => {
+            if (item.task == indexCounter) {
+                outputArray.push({todo: item.todo, done: item.done});
+            }
+        });
+        indexCounter++;
+    }
+    // Clear local storage to fix missalignment with keys
     localStorage.clear();
-    let reIndex = 0;
-    savedTaskArray.forEach(item => {
-        saveToLocal(item, reIndex);
-        reIndex++;
-    });
-    return savedTaskArray;
+    indexCounter = 0;
+    // Write back the tasks with corrected keys
+    while (indexCounter < outputArray.length) {
+        saveToLocal(outputArray[indexCounter], indexCounter);
+        indexCounter++;
+    }
+    // Return the sorted tasks
+    return outputArray;
 }
 
 // ##################################################################################################
@@ -123,7 +139,7 @@ function firstRun() {
 
 // Using ??? to clean the input from any bad content
 const cleanInput = (textToClean) => {
-    const cleanText = textToClean; // Här behöver man göra en rengöring av strängen med regex eller trim?
+    const cleanText = textToClean.trim(); // Här behöver man göra en rengöring av strängen med regex också?
     return cleanText;
 }
 
@@ -175,7 +191,6 @@ const changeTask = (klick) => {
             todoList[itemToChange].done = false;
             if (readyItemCounter > 0) {
                 readyItemCounter--;
-                console.log('item to not done');
             }
             // We also update the task in localStorage
             updateLocalDone(itemToChange, false);
@@ -183,7 +198,6 @@ const changeTask = (klick) => {
             whichItem.classList.add('itemDone');
             todoList[itemToChange].done = true;
             readyItemCounter++;
-            console.log('Item to done');
 
             // We also update the task in localStorage
             updateLocalDone(itemToChange, true);
@@ -218,7 +232,7 @@ function addToDo() {
     
     // If input is empty or doesn't exist we do nothing
     if (!(itemToAddInput == '' || itemToAddInput == null)) {
-        // Sending input to be cleaned by nothing, right now
+        // Sending input to be cleaned
         const  itemToAddClean = cleanInput(itemToAddInput);
 
         // ######## Under this line, we do not use dirty input itemToAddInput #######################
