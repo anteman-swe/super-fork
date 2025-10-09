@@ -20,6 +20,7 @@ const saveToLocal = (itemToSave, index = (todoList.length - 1)) => {
 
 // Function to update tasks in local storage
 const updateLocalDone = (itemNr, state) => {
+    todoList = getFromLocal();
     let itemTochange = JSON.parse(localStorage.getItem(`task${itemNr}`));
     let itemToLoadBack = {todo: itemTochange.todo, done: state};
     localStorage.setItem(`task${itemNr}`, JSON.stringify(itemToLoadBack));
