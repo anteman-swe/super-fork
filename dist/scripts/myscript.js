@@ -1,18 +1,20 @@
 // My javascript used for a todo-list
 
 // Declaring global variabels and constants
-let todoList = []; // Starting with an empty arry for tasks, it will get filled by saved items or by user
-const inputField = document.querySelector('#newTaskInput');
-const addButton = document.querySelector('#addButton');
-const listShown = document.querySelector('#todoList');
-const readyItems = document.querySelector('#readyItems');
-const taskAlreadyExist = document.querySelector('#task-already-exist');
+let todoList = []; 
+const inputField = document.getElementsByClassName('todo-container__task-input');
+const addButton = document.getElementsByClassName('todo-container__add-button');
+const listShown = document.getElementsByClassName('todo-container__todo-list');
+const readyItems = document.getElementsByClassName('todo-container__completed-items');
+const taskAlreadyExist = document.getElementsByClassName('todo-container__warning-message');
+
+console.log(inputField);
 
 let readyItemCounter = 0;
 
 // ##################################################################################################
-
 // #################### Functions to work with local storage ########################################
+
 // Function to save task to local storage
 const saveToLocal = (itemToSave, index = (todoList.length - 1)) => {
     localStorage.setItem(`task${index}`, JSON.stringify(itemToSave));
@@ -20,10 +22,10 @@ const saveToLocal = (itemToSave, index = (todoList.length - 1)) => {
 
 // Function to update tasks in local storage
 const updateLocalDone = (itemNr, state) => {
-    todoList = getFromLocal();
     let itemTochange = JSON.parse(localStorage.getItem(`task${itemNr}`));
     let itemToLoadBack = {todo: itemTochange.todo, done: state};
     localStorage.setItem(`task${itemNr}`, JSON.stringify(itemToLoadBack));
+    todoList = getFromLocal();
 }   
 
 // Function to get tasks from local storage and see to it that they are sorted correct
@@ -31,7 +33,6 @@ const getFromLocal = () => {
     let indexCounter = 0;
     let  savedTaskArray = [];
     let maxArray = [];
-    // Retreives an array of the tasks saved in local storage
     while (indexCounter < localStorage.length) {
         let storageKey = localStorage.key(indexCounter);
         let retrievedObject = JSON.parse(localStorage.getItem(storageKey));
@@ -40,11 +41,9 @@ const getFromLocal = () => {
         maxArray.push(storageKey.at(-1));
         indexCounter++;
     }
-    // Finding what task has greatest sorting number
     let comparer = maxArray.sort().at(-1);
     let outputArray = [];
     indexCounter = 0;
-    // Sort the tasks in a new array to be written back to local storage and returned
     while (indexCounter < comparer + 1) {
         savedTaskArray.forEach(item => {
             if (item.task == indexCounter) {
@@ -53,66 +52,59 @@ const getFromLocal = () => {
         });
         indexCounter++;
     }
-    // Clear local storage to fix missalignment with keys
     localStorage.clear();
     indexCounter = 0;
-    // Write back the tasks with corrected keys
     while (indexCounter < outputArray.length) {
         saveToLocal(outputArray[indexCounter], indexCounter);
         indexCounter++;
     }
-    // Return the sorted tasks
     return outputArray;
 }
 
 // ##################################################################################################
-
 // ###################### Functions to manipulate the DOM ###########################################
+
 // Function to add ONE row of the tasklist to the DOM 
 const addRowToHTML = (taskItem) => {
-    // Her we create all neccesary DOM nodes for our task
             const itemAdd = document.createElement('li');
             const itemText = document.createElement('span');
             const trashCan = document.createElement('span');
-            
-            // First we create the trashcan and connect a listener to it
+
             trashCan.innerHTML = '&#x1F5D1;';
-            trashCan.setAttribute('class', 'trashCan');
+            trashCan.setAttribute('class', 'todo-container__delete');
             trashCan.addEventListener('click', removeTask);
-            
-            // Second we create our task with its text content
+
             itemText.textContent = taskItem.todo;
             if(taskItem.done){
-                itemText.classList.add('itemDone');
+                itemText.classList.add('todo-container__todo-item-content--item-done');
             }
-            itemText.classList.add('list-text-content');
+            itemText.classList.add('todo-container__todo-item-content');
             itemText.addEventListener('click', changeTask);
             itemText.addEventListener('dblclick', removeTask);
-            
-            // Third we put together our complet item to show our task
+
+            itemAdd.classList.add('todo-container__todo-item');
             itemAdd.appendChild(itemText);
             itemAdd.appendChild(trashCan);
-            listShown.appendChild(itemAdd);
+
+            listShown[0].appendChild(itemAdd);
 }
 
 // Update the visible readycounter in page
 const updateReady = (readyCount) => {    
     if (readyCount > 0) {
-        readyItems.textContent = `${readyCount} completed`;
+        readyItems[0].textContent = `${readyCount} completed`;
     }
     else {
-        readyItems.textContent = `0 completed`;
+        readyItems[0].textContent = `0 completed`;
     }
 }
 
 // Function to run first of all after page is loaded so listeners is added and todo-list gets loaded into the DOM
 function firstRun() {
-    // Making sure the input field is clean at start
     cleanInputField();
-    // Adding listeners if addButton and inputField exists, if not log out an error message in console
-    if (addButton && inputField) {
-        addButton.addEventListener('click', addToDo);
-        inputField.addEventListener('keydown', (event) => {
+    if (addButton[0] && inputField[0]) {
+        addButton[0].addEventListener('click', addToDo);
+        inputField[0].addEventListener('keydown', (event) => {
             if (event.key == 'Enter') {
                 addToDo();
             }
@@ -120,7 +112,7 @@ function firstRun() {
         });
     }
     else {
-        console.log('Variabler kopplade till DOM har returnerat null');
+        console.log('Variabels connected to the DOM has returned null');
     }
     todoList = getFromLocal();
     if (todoList){
@@ -134,11 +126,11 @@ function firstRun() {
         todoList = [];
     }
 }
-// ##################################################################################################
 
+// ##################################################################################################
 // ##################### Functions misc #############################################################
 
-// Using ??? to clean the input from any bad content
+// Using trim to clean the input
 const cleanInput = (textToClean) => {
     const cleanText = textToClean.trim(); // Här behöver man göra en rengöring av strängen med regex också?
     return cleanText;
@@ -146,27 +138,25 @@ const cleanInput = (textToClean) => {
 
 // reset warning message
 const resetWarning = () => {
-    taskAlreadyExist.classList.remove('flash');
-    taskAlreadyExist.textContent = "";
+    taskAlreadyExist[0].classList.remove('todo-container__warning-message--flashing-text');
+    taskAlreadyExist[0].textContent = "";
 }
 
 // Clean the input field
 const cleanInputField = () => {
-    inputField.value = "";
+    inputField[0].value = "";
 }
-// ##################################################################################################
 
+// ##################################################################################################
 // ##################### Functions to manipulate tasks ##############################################
 
 // Function to find the index in todoList of a given task
 const taskFinder = (findText) => {
-    // First of all reload the todolist from local storage
     todoList = getFromLocal();
-    // find the task in the array and return index, if none found return '-1'
     let arrayIndex = -1;
     let arrayCounter = 0;
     todoList.forEach(item => {
-        if (item.todo.toUpperCase() == findText.toUpperCase()){ // Using toUpperCase() so we not get fooled by different case of letters
+        if (item.todo.toUpperCase() == findText.toUpperCase()){
             arrayIndex = arrayCounter;
             if (item.done == true && readyItemCounter > 0){
                 readyItemCounter--;
@@ -180,31 +170,21 @@ const taskFinder = (findText) => {
 // Function to udate a task status, if done then undone and vice versa
 const changeTask = (klick) => {
     const whichItem = klick.target;
-    // Check if task exist in tasklist array
     const itemToChange = taskFinder(whichItem.textContent);
-
-    // If task exist we can change it
-    if (!(itemToChange == -1)) {
-        
-        // If task is already done, change it back to undone, otherwise mark it as done and last update readycounter
-        if (whichItem.classList.contains('itemDone') && todoList[itemToChange].done) {
-            whichItem.classList.remove('itemDone');
+    if (!(itemToChange == -1)) { readycounter
+        if (whichItem.classList.contains('todo-container__todo-item-content--item-done') && todoList[itemToChange].done) {
+            whichItem.classList.remove('todo-container__todo-item-content--item-done');
             todoList[itemToChange].done = false;
             if (readyItemCounter > 0) {
                 readyItemCounter--;
             }
-            // We also update the task in localStorage
             updateLocalDone(itemToChange, false);
         } else {
-            whichItem.classList.add('itemDone');
+            whichItem.classList.add('todo-container__todo-item-content--item-done');
             todoList[itemToChange].done = true;
-            readyItemCounter++;
-
-            // We also update the task in localStorage
             updateLocalDone(itemToChange, true);
+            readyItemCounter++;
         }
-        
-        // Update visible readycounter
         updateReady(readyItemCounter);
     }
 }
@@ -214,62 +194,36 @@ const removeTask = (klick) => {
     const whichItem = klick.target;
     const textToSearch = whichItem.parentNode.firstChild.textContent;
     const itemToRemove = taskFinder(textToSearch);
-
-    // If task does not exist, 'itemToRemove = -1' do nothing
     if (!(itemToRemove == -1)) {
-        
-        // Remove task from array and page
         todoList.splice(itemToRemove, 1);
         localStorage.removeItem(`task${itemToRemove}`);
         whichItem.parentNode.remove();
     }
-    // Update visible counter on exit from function
     updateReady(readyItemCounter);
 }
 
 // Function to add tasks to the todolist, DOM, Array and Local Storage
 function addToDo() {
-    let itemToAddInput = inputField.value;
-    
-    // If input is empty or doesn't exist we do nothing
+    let itemToAddInput = inputField[0].value;
     if (!(itemToAddInput == '' || itemToAddInput == null)) {
-        // Sending input to be cleaned
         const  itemToAddClean = cleanInput(itemToAddInput);
-
-        // ######## Under this line, we do not use dirty input itemToAddInput #######################
-
-        // We check if task already exist, if not we can add it
         const checkTaskExist = taskFinder(itemToAddClean);
-
-        // We create the JSON Object to save and show
         let taskToAdd = {todo: itemToAddClean, done: false}
-        
-        // If task didn't exist we will add it / (-1) = task didn't exist
         if (checkTaskExist == -1){
-            // Clean comment-field just to be sure
             resetWarning();
-            
-            // Send the task to be added to list in DOM
             addRowToHTML(taskToAdd);
-
-            // Here we push our task to the array
             todoList.push(taskToAdd);
-
-            // Save the Item to local storage
             saveToLocal(taskToAdd);
-            
-            // Last we clean the the input field
             cleanInputField();
         } else {
-            // If task already existed, we let the user know
-            taskAlreadyExist.classList.add('flash');
-            taskAlreadyExist.textContent = "That task already exist. Try another name"
+            taskAlreadyExist[0].classList.add('todo-container__warning-message--flashing-text');
+            taskAlreadyExist[0].textContent = "That task already exist. Try another name"
             cleanInputField();
             setTimeout(resetWarning, 3000);
         }
     } else {
-        taskAlreadyExist.classList.add('flash');
-        taskAlreadyExist.textContent = "Input must not be empty";
+        taskAlreadyExist[0].classList.add('todo-container__warning-message--flashing-text');
+        taskAlreadyExist[0].textContent = "Input must not be empty";
         setTimeout(resetWarning, 3000);
         
     }
@@ -278,8 +232,6 @@ function addToDo() {
 
 // ##################################################################################################
 
-// Check if there is any saved tasks from before
 firstRun();
 
-// Update visible readycounter after first run has checked the todo-list
 updateReady(readyItemCounter);

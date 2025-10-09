@@ -75,11 +75,11 @@
   padding: 0;
 }
 
-html {
+.page-container {
   font-size: 4vh;
 }
 
-body {
+.body-container {
   width: 100vw;
   height: 98vh;
   background-image: linear-gradient(to top, #ff7d7d, #fec6c5);
@@ -97,14 +97,14 @@ body {
   box-shadow: 0 0 0.4rem #777777;
   animation: frame-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s 1;
 }
-.todo-container h1 {
+.todo-container__headline {
   font-family: Times, "Times New Roman", serif;
   font-size: 1.6rem;
   font-weight: bold;
   white-space: nowrap;
   animation: fade-in 1.5s linear 1;
 }
-.todo-container #readyItems {
+.todo-container__completed-items {
   margin: 0.5rem auto 0.7rem auto;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -114,14 +114,14 @@ body {
   font-size: 0.5rem;
   animation: fade-in 1.5s linear 1;
 }
-.todo-container .input-group {
+.todo-container__input-group {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   justify-content: center;
   height: 1.6rem;
 }
-.todo-container .input-group #newTaskInput {
+.todo-container__task-input {
   height: 1.2rem;
   width: calc(100% - 0.2rem);
   margin-right: 0.2rem;
@@ -132,13 +132,13 @@ body {
   font-size: 0.7rem;
   animation: fade-in 1.7s linear 1;
 }
-.todo-container .input-group #newTaskInput:focus {
+.todo-container__task-input:focus {
   outline-style: solid;
   outline-width: 0.1rem;
   outline-color: #0b54b5;
   outline-offset: -0.05rem;
 }
-.todo-container .input-group #addButton {
+.todo-container__add-button {
   height: 1.2rem;
   width: 2rem;
   border-width: 1px;
@@ -149,21 +149,21 @@ body {
   cursor: pointer;
   animation: fade-in 1.7s linear 1;
 }
-.todo-container #task-already-exist {
+.todo-container__warning-message {
   width: 100%;
   margin-bottom: 0.8rem;
   font: italic normal 400 condensed 0.5rem "Inter", sans-serif;
   color: red;
 }
-.todo-container .flash {
+.todo-container__warning-message--flashing-text {
   animation: flash 0.3s linear 0s 2;
 }
-.todo-container ul {
+.todo-container__todo-list {
   margin-top: 10px;
   list-style-type: none;
   animation: fade-in 2s linear 0s 1;
 }
-.todo-container ul li {
+.todo-container__todo-item {
   display: block;
   margin-top: 0.2rem;
   font-family: "Inter", sans-serif;
@@ -174,20 +174,20 @@ body {
   text-decoration: none;
   animation: task-fade-slide 0.3s linear 0s 1;
 }
-.todo-container ul li .list-text-content {
+.todo-container__todo-item-content {
   display: inline;
   vertical-align: middle;
   transition: color 0.2s linear;
   margin-right: 0.3rem;
   cursor: pointer;
 }
-.todo-container ul li .itemDone {
+.todo-container__todo-item-content--item-done {
   text-decoration: line-through;
   text-decoration-thickness: 10%;
   transition: color 0.3s linear;
   color: gray;
 }
-.todo-container ul li .trashCan {
+.todo-container__delete {
   font-size: 0.5rem;
   cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

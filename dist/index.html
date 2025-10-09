@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" class="page-container">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +7,18 @@
         <link rel="icon" type="image/x-icon" href="images/list-icon-white.png">
         <link rel="stylesheet" type="text/css" href="css/main.css">
     </head>
-    <body>
+    <body class="body-container">
         <section class="todo-container">
             <header>
-                <h1>My ToDo</h1>
+                <h1 class="todo-container__headline">My ToDo</h1>
             </header>
-            <p id="readyItems"></p>
-            <div class="input-group"><input type="text" id="newTaskInput"><button id="addButton">OK</button></div>
+            <p class="todo-container__completed-items"></p>
+            <div class="todo-container__input-group"><input type="text" class="todo-container__task-input"><button class="todo-container__add-button">OK</button></div>
 
-            <div id="task-already-exist"></div>
-            <ul id="todoList">
+            <div class="todo-container__warning-message"></div>
+            <ul class="todo-container__todo-list">
             </ul>
         </section>
-        <script type="module" src="scripts/myscript.js"></script> <!-- Script that controls the todo-list-->
+        <script type="module" src="scripts/myscript.js"></script>
     </body>
 </html>
