@@ -97,6 +97,7 @@ const updateReady = (readyCount) => {
     else {
         readyItems[0].textContent = `0 completed`;
     }
+    todoList = getFromLocal();
 }
 
 // Function to run first of all after page is loaded so listeners is added and todo-list gets loaded into the DOM
@@ -171,7 +172,7 @@ const taskFinder = (findText) => {
 const changeTask = (klick) => {
     const whichItem = klick.target;
     const itemToChange = taskFinder(whichItem.textContent);
-    if (!(itemToChange == -1)) { readycounter
+    if (!(itemToChange == -1)) {
         if (whichItem.classList.contains('todo-container__todo-item-content--item-done') && todoList[itemToChange].done) {
             whichItem.classList.remove('todo-container__todo-item-content--item-done');
             todoList[itemToChange].done = false;
