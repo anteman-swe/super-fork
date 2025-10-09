@@ -152,17 +152,11 @@ body {
 .todo-container #task-already-exist {
   width: 100%;
   margin-bottom: 0.8rem;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-size: 0.5rem;
-  font-style: italic;
+  font: italic normal 400 condensed 0.5rem "Inter", sans-serif;
   color: red;
 }
 .todo-container .flash {
-  animation-name: flash;
-  animation-duration: 0.3s;
-  animation-iteration-count: 2;
+  animation: flash 0.3s linear 0s 2;
 }
 .todo-container ul {
   margin-top: 10px;
