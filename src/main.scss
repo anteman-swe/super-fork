@@ -31,6 +31,11 @@
     text-align: center;
     box-shadow: 0 0 0.4rem #777777;
     animation: frame-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s 1;
+    @media screen and (max-width: 600px) and (orientation: portrait) {
+        width: 96vw;
+        min-width: 200px;
+        padding: 0.4rem 0.5rem 0.8rem 0.5rem;
+    }
 
     &__headline {
         font-family: vars-kf.$header-font;
@@ -38,6 +43,10 @@
         font-weight: bold;
         white-space: nowrap;
         animation: fade-in 1.5s linear 1;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            font-size: 0.9rem;
+            white-space: wrap;
+        }
 
     }
 
@@ -50,6 +59,12 @@
         letter-spacing: -3%;
         font-size: 0.5rem;
         animation: fade-in 1.5s linear 1;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            margin: 0.25rem auto 0.35rem auto;
+            font-size: 0.4rem;
+            letter-spacing: normal;
+        }
+
     }
 
     &__input-group {
@@ -58,6 +73,9 @@
         align-items: center;
         justify-content: center;
         height: calc(vars-kf.$input-height + 0.4rem);
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            height: calc(vars-kf.$input-height - 0.2rem);
+        }
     }
 
     &__task-input {
@@ -70,6 +88,11 @@
         font-weight: 500;
         font-size: 0.7rem;
         animation: fade-in 1.7s linear 1;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            height: calc(vars-kf.$input-height - 0.4rem);
+            font-size: 0.4rem;
+            font-weight: 400;
+        }
     }
 
     &__task-input:focus {
@@ -89,6 +112,12 @@
         font-weight: 500;
         cursor: pointer;
         animation: fade-in 1.7s linear 1;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            height: calc(vars-kf.$input-height - 0.4rem);
+            font-size: 0.6rem;
+            width: 1.2rem;
+            font-weight: 300;
+        }
     }
 
     &__warning-message {
@@ -96,6 +125,9 @@
         margin-bottom: 0.8rem;
         font: italic normal 400 condensed 0.5rem vars-kf.$list-font;
         color: red;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            font-size: 0.4rem;
+        }
 
         &--flashing-text {
             animation: flash 0.3s linear 0s 2;
@@ -118,6 +150,11 @@
         font-size: 0.8rem;
         text-decoration: none;
         animation: task-fade-slide 0.3s linear 0s 1;
+        @media screen and (max-width: 600px) and (orientation: portrait) {
+            margin-top: 0.1rem;
+            font-size: 0.5rem;
+            font-weight: 400;
+        }
     }
 
     &__todo-item-content {
