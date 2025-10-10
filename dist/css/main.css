@@ -97,12 +97,25 @@
   box-shadow: 0 0 0.4rem #777777;
   animation: frame-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s 1;
 }
+@media screen and (max-width: 600px) {
+  .todo-container {
+    width: 96vw;
+    min-width: 200px;
+    padding: 0.4rem 0.5rem 0.8rem 0.5rem;
+  }
+}
 .todo-container__headline {
   font-family: Times, "Times New Roman", serif;
   font-size: 1.6rem;
   font-weight: bold;
   white-space: nowrap;
   animation: fade-in 1.5s linear 1;
+}
+@media screen and (max-width: 600px) {
+  .todo-container__headline {
+    font-size: 0.9rem;
+    white-space: wrap;
+  }
 }
 .todo-container__completed-items {
   margin: 0.5rem auto 0.7rem auto;
@@ -114,12 +127,24 @@
   font-size: 0.5rem;
   animation: fade-in 1.5s linear 1;
 }
+@media screen and (max-width: 600px) {
+  .todo-container__completed-items {
+    margin: 0.25rem auto 0.35rem auto;
+    font-size: 0.4rem;
+    letter-spacing: normal;
+  }
+}
 .todo-container__input-group {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   justify-content: center;
   height: 1.6rem;
+}
+@media screen and (max-width: 600px) {
+  .todo-container__input-group {
+    height: 1rem;
+  }
 }
 .todo-container__task-input {
   height: 1.2rem;
@@ -131,6 +156,13 @@
   font-weight: 500;
   font-size: 0.7rem;
   animation: fade-in 1.7s linear 1;
+}
+@media screen and (max-width: 600px) {
+  .todo-container__task-input {
+    height: 0.8rem;
+    font-size: 0.4rem;
+    font-weight: 400;
+  }
 }
 .todo-container__task-input:focus {
   outline-style: solid;
@@ -149,11 +181,24 @@
   cursor: pointer;
   animation: fade-in 1.7s linear 1;
 }
+@media screen and (max-width: 600px) {
+  .todo-container__add-button {
+    height: 0.8rem;
+    font-size: 0.6rem;
+    width: 1.2rem;
+    font-weight: 300;
+  }
+}
 .todo-container__warning-message {
   width: 100%;
   margin-bottom: 0.8rem;
   font: italic normal 400 condensed 0.5rem "Inter", sans-serif;
   color: red;
+}
+@media screen and (max-width: 600px) {
+  .todo-container__warning-message {
+    font-size: 0.4rem;
+  }
 }
 .todo-container__warning-message--flashing-text {
   animation: flash 0.3s linear 0s 2;
@@ -173,6 +218,13 @@
   font-size: 0.8rem;
   text-decoration: none;
   animation: task-fade-slide 0.3s linear 0s 1;
+}
+@media screen and (max-width: 600px) {
+  .todo-container__todo-item {
+    margin-top: 0.1rem;
+    font-size: 0.5rem;
+    font-weight: 400;
+  }
 }
 .todo-container__todo-item-content {
   display: inline;
